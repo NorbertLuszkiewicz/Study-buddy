@@ -1,55 +1,41 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { redirect } from 'react-router-dom';
 import { useError } from 'hooks/useError.js';
-import { authApi } from 'api/endpoints/auth.js';
+import { useGetUser, useLoginUser } from 'api/services/auth.js';
 
 const AuthContext = React.createContext({});
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState('Loading');
   const { dispatchError } = useError();
+  const { data, isError, isSuccess } = useGetUser();
+  const { mutate } = useLoginUser();
 
   useEffect(() => {
     const token = localStorage.getItem('token');
     const email = localStorage.getItem('email');
+
     if (token && email) {
-      (async () => {
-        try {
-          const { data } = await authApi.me({ email });
-          setUser(data.user);
-        } catch (e) {
-          setUser(null);
-          console.log(e);
-        }
-      })();
+      if (isSuccess) setUser(data.user);
+      if (isError) setUser(null);
     } else {
       setUser(null);
     }
-  }, []);
+  }, [data, isError, isSuccess]);
 
-  // const [user, setUser] = useState('Loading');
-  // const { dispatchError } = useError();
-  // const { data, mutate, isError, isSuccess } = useMe();
-
-  // const token = localStorage.getItem('token');
-  // const email = localStorage.getItem('email');
-  // if (token && email) {
-  //   mutate({ email });
-  //   if (isSuccess) setUser(data.user);
-  //   if (isError) setUser(null);
-  // } else {
-  //   setUser(null);
-  // }
-
-  const signIn = async ({ email, password }) => {
-    try {
-      const { data } = await authApi.login(email, password);
-      setUser(data.user);
-      localStorage.setItem('token', data.token);
-      localStorage.setItem('email', data.user.email);
-    } catch (error) {
-      setUser(null);
-      dispatchError(error);
-    }
+  const signIn = (authData) => {
+    mutate(authData, {
+      onSuccess: async (loginData) => {
+        setUser(loginData.user);
+        localStorage.setItem('token', loginData.token);
+        localStorage.setItem('email', loginData.user.email);
+        redirect('/');
+      },
+      onError: async (error) => {
+        setUser(null);
+        dispatchError(error);
+      },
+    });
   };
 
   const signOut = () => {

@@ -1,7 +1,7 @@
 import { client } from 'api/client.js';
 
 export const authApi = {
-  login: (email, password) => {
+  login: ({ email, password }) => {
     return client.put('/login/', {
       email,
       password,

@@ -1,8 +1,10 @@
 import { Button } from 'components/atoms/Button/Button.js';
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Title, Author, Wrapper, Image, Description, ContentWrapper } from './Article.styles.js';
 
-const Article = ({ title, author, description, img }) => {
+const Article = ({ title, author, description, img, id }) => {
+  const navigate = useNavigate();
   return (
     <Wrapper>
       <Title>{title}</Title>
@@ -10,7 +12,7 @@ const Article = ({ title, author, description, img }) => {
         <div>
           <Author>{author}</Author>
           <Description>{description}</Description>
-          <Button>Read more</Button>
+          <Button onClick={() => navigate(`/article/${id}`)}>Read more</Button>
         </div>
         {img && <Image img src={img}></Image>}
       </ContentWrapper>

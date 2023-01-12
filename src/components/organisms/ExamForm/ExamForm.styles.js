@@ -1,8 +1,7 @@
 import styled from 'styled-components';
+import Select from 'react-select';
 import { Button } from 'components/atoms/Button/Button.js';
 import { Label } from 'components/atoms/Label/Label.js';
-import FormField from 'components/molecules/FormField/FormField.js';
-import Select from 'react-select';
 import { Input } from 'components/atoms/Input/Input.js';
 
 export const FormWrapper = styled.form`
@@ -11,10 +10,6 @@ export const FormWrapper = styled.form`
   align-items: center;
   flex-direction: column;
   width: 100%;
-`;
-
-export const StyledFormField = styled(FormField)`
-  width: 350px;
 `;
 
 export const ButtonStyled = styled(Button)`

@@ -1,23 +1,17 @@
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useCreateExam } from 'api/services/subjects.js';
 import { Title } from 'components/atoms/Title/Title.js';
 import { ValidationMessage } from 'components/atoms/ValidationMessage/ValidationMessage.js';
+import FormField from 'components/molecules/FormField/FormField.js';
+import { getSubjectsOptions } from 'helpers/helpers.js';
 import { useAuth } from 'hooks/useAuth.js';
 import { useError } from 'hooks/useError.js';
-
 import { useSuccessAction } from 'hooks/useSuccessAction.js';
-import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
-import {
-  FormWrapper,
-  ButtonStyled,
-  StyledFormField,
-  SelectStyled,
-  StyledLabel,
-  DataPicker,
-} from './ExamForm.styles.js';
+import { FormWrapper, ButtonStyled, SelectStyled, StyledLabel, DataPicker } from './ExamForm.styles.js';
 
 const ExamForm = ({ className }) => {
-  const { mutate, isSuccess, isError } = useCreateExam();
+  const { mutate } = useCreateExam();
   const { dispatchAction } = useSuccessAction();
   const { dispatchError } = useError();
   const {
@@ -28,36 +22,25 @@ const ExamForm = ({ className }) => {
   } = useForm();
 
   const { user } = useAuth();
-  const options = user.subjects
-    ?.filter((x) => x.class === className)
-    .map((subject) => {
-      return { value: subject.name, label: subject.name };
-    });
+  const options = getSubjectsOptions(user.subjects, className);
   const [selectedSubject, setSelectedSubject] = useState(options[0]);
 
   const onSubmit = (data) => {
-    mutate(data);
-    if (isSuccess) {
-      dispatchAction('Your exam has been added.');
-      reset();
-    }
-    if (isError) dispatchError('Error while adding exam.');
+    mutate(data, {
+      onSuccess: () => {
+        dispatchAction('Your exam has been added.');
+        reset();
+      },
+      onError: () => dispatchError('Error while adding exam.'),
+    });
   };
 
   register('teacher', { value: user.name });
-  register('subject', { value: selectedSubject.value });
-
   if (options.length === 0) return <div>You have no subject for this class.</div>;
   return (
     <FormWrapper onSubmit={handleSubmit(onSubmit)}>
       <Title>Create exam to whole class</Title>
-      <StyledFormField
-        label="name"
-        name="name"
-        id="name"
-        placeholder="Name"
-        {...register('name', { required: true })}
-      />
+      <FormField label="name" name="name" id="name" placeholder="Name" {...register('name', { required: true })} />
       {errors.name && <ValidationMessage>Title is required</ValidationMessage>}
       <StyledLabel htmlFor="subject">subject</StyledLabel>
       <SelectStyled
@@ -65,7 +48,10 @@ const ExamForm = ({ className }) => {
         classNamePrefix="Select"
         defaultValue={selectedSubject}
         options={options}
-        onChange={setSelectedSubject}
+        onChange={(subject) => {
+          setSelectedSubject(subject);
+          register('subject', { value: subject.value });
+        }}
       />
       {errors.subject && <ValidationMessage>Subject is required</ValidationMessage>}
       <StyledLabel htmlFor="date">date</StyledLabel>
@@ -78,7 +64,7 @@ const ExamForm = ({ className }) => {
       />
       {errors.date && <ValidationMessage>Date in future is required</ValidationMessage>}
       {className && (
-        <StyledFormField
+        <FormField
           label="class"
           name="className"
           id="className"

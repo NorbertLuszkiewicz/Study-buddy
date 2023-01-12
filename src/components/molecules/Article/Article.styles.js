@@ -20,13 +20,13 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Title = styled.h1`
-  font-size: ${({ theme }) => theme.fontSize.xl};
+  font-size: ${({ theme }) => theme.fontSize.xxl};
   margin-bottom: 20px;
 `;
 
 export const Author = styled.p`
   margin: -20px 0 0 0;
-  font-size: ${({ theme }) => theme.fontSize.xs};
+  font-size: ${({ theme }) => theme.fontSize.m};
 `;
 
 export const Description = styled.p`
@@ -35,7 +35,6 @@ export const Description = styled.p`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   width: 100%;
-  font-size: ${({ theme }) => theme.fontSize.xs};
 `;
 
 export const Image = styled.img`

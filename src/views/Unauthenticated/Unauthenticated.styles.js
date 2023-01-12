@@ -7,7 +7,7 @@ export const FormWrapper = styled.form`
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  padding: 20px 80px;
+  padding: 20px 50px;
   border-radius: 15px;
   background-color: ${({ theme }) => theme.colors.white};
   box-shadow: 0px 0px 25px -2px rgba(208, 209, 222, 1);

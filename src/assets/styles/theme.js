@@ -13,9 +13,9 @@ export const theme = {
     lightPurple: '#ECEFF7',
   },
   fontSize: {
-    xxl: '34px',
-    xl: '24px',
-    l: '17px',
+    xxl: '24px',
+    xl: '17px',
+    l: '14px',
     m: '12px',
     s: '11px',
   },

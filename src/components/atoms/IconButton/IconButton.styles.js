@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const StyledButton = styled.button`
   width: 25px;
   height: 25px;
-  margin: 0 10px;
+  margin: 0 5px;
   background-color: ${({ theme }) => theme.colors.darkGrey};
   border-radius: 50px;
   border: none;
@@ -13,6 +13,10 @@ export const StyledButton = styled.button`
   align-items: center;
   padding: 4px;
   cursor: pointer;
+
+  @media (min-width: 768px) {
+    margin: 0 10px;
+  }
 
   svg {
     width: 100%;

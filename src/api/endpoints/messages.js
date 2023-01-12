@@ -1,8 +1,8 @@
 import { client } from 'api/client.js';
 
 export const messagesApi = {
-  getMessages: () => {
-    return client.get('/messages/');
+  getMessages: (query) => {
+    return client.get(`/messages/${query}`);
   },
 
   createMessage: (data) => {

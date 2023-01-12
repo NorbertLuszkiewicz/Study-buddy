@@ -5,7 +5,11 @@ export const subjectsApi = {
     return client.get('/subjects/');
   },
 
-  addSubject: (data) => {
+  createSubject: (data) => {
+    return client.post(`/subject/`, data);
+  },
+
+  removeSubject: (data) => {
     return client.put(`/subject/`, data);
   },
 

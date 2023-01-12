@@ -12,4 +12,8 @@ export const studentsApi = {
   createStudent: (data) => {
     return client.post('/student/', data);
   },
+
+  removeStudentClass: (data) => {
+    return client.put('/student/', data);
+  },
 };

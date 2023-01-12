@@ -30,7 +30,7 @@ export const Wrapper = styled.div`
   border: 3px solid ${({ theme }) => theme.colors.error};
   border-radius: 15px;
   animation: ${slideAnimation} 1s ease-in-out 1 forwards, ${slideAnimation} 1s 4s ease-in-out 1 reverse forwards;
-  z-index: 9999;
+  z-index: 9;
 
   ${Title} {
     color: ${({ theme }) => theme.colors.error};

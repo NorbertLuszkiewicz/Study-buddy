@@ -1,40 +1,37 @@
-import { useMutation, useQueryClient } from 'react-query';
+import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { authApi } from 'api/endpoints/auth.js';
 
-export const useLogin = () => {
-  const queryClient = useQueryClient('user');
-  return useMutation(
+export const useGetUser = () => {
+  return useQuery(
     ['user'],
-    async ({ email, password }) => {
-      const response = await authApi.login(email, password);
+    async () => {
+      const email = localStorage.getItem('email');
+      const response = await authApi.me({ email });
       return response.data;
     },
     {
-      onSuccess: (data) => {
-        return data;
-      },
+      cacheTime: 2 * 60 * 1000,
+      retry: false,
       onError: (error) => {
-        return error;
+        if (error.status === 403) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('email');
+        }
       },
     }
   );
 };
 
-export const useMe = () => {
+export const useLoginUser = () => {
+  const queryClient = useQueryClient();
   return useMutation(
     ['user'],
     async (data) => {
-      const response = await authApi.me(data);
+      const response = await authApi.login(data);
       return response.data;
     },
     {
-      onSuccess: (data) => {
-        return data;
-      },
-      onError: (error) => {
-        return error;
-      },
-      retryDelay: 5 * 1000 * 60,
+      onSuccess: (user) => queryClient.setQueryData(['user'], user),
     }
   );
 };

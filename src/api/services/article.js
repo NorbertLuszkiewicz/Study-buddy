@@ -1,7 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from 'react-query';
 import { articlesApi } from 'api/endpoints/articles.js';
 
-export const useGetArticle = () => {
+export const useGetArticles = () => {
   return useQuery(
     ['articles'],
     async () => {

@@ -7,7 +7,6 @@ export const SuccessActionProvider = ({ children }) => {
 
   const dispatchAction = useCallback((message) => {
     setAction(message);
-    console.log(message, 'dddddsssss');
     setTimeout(() => {
       setAction(null);
     }, 5000);

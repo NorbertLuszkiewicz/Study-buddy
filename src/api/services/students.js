@@ -24,21 +24,20 @@ export const useGetStudents = () => {
   );
 };
 
-export const useCreateArticle = () => {
+export const useRemoveStudentClass = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    ['students', 'create'],
+    ['student', 'remove'],
     async (data) => {
-      const response = await studentsApi.createStudent(data);
+      const response = await studentsApi.removeStudentClass(data);
       return response.data;
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('articles');
-      },
-      onCompleted: (e) => {
-        console.log(e, 'wwwww');
+        queryClient.invalidateQueries('student');
+        queryClient.invalidateQueries('user');
+        queryClient.invalidateQueries('class');
       },
     }
   );

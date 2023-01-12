@@ -26,7 +26,7 @@ export const SelectStyled = styled(Select)`
     border-bottom 1px solid ${({ theme }) => theme.colors.grey};
     border-radius: 0;
     margin: -20px 0 10px 0;
-    font-size: ${({ theme }) => theme.fontSize.xl};
+    font-size: ${({ theme }) => theme.fontSize.xxl};
     outline: none !important;
   }
   .Select__menu {

@@ -1,4 +1,3 @@
-/* eslint-disable prettier/prettier */
 import { useForm } from 'react-hook-form';
 import { useAuth } from 'hooks/useAuth.js';
 import FormField from 'components/molecules/FormField/FormField.js';
@@ -7,11 +6,9 @@ import { FormWrapper, Wrapper, ButtonStyled } from 'views/Unauthenticated/Unauth
 import { Title } from 'components/atoms/Title/Title.js';
 import { Logo } from 'components/atoms/Logo/Logo.js';
 import Spinner from 'components/molecules/Spinner/Spinner.js';
-import { useLogin } from 'api/services/auth.js';
 
 const Unauthenticated = () => {
   const auth = useAuth();
-  const { data, mutate } = useLogin();
 
   const {
     register,

@@ -13,23 +13,37 @@ export const useGetSubjects = (email) => {
   );
 };
 
-export const useAddSubject = () => {
+export const useCreateSubject = () => {
   const queryClient = useQueryClient();
 
   return useMutation(
-    ['subjects', 'create'],
+    ['subjects'],
     async (body) => {
-      const response = await subjectsApi.addSubject(body);
+      const response = await subjectsApi.createSubject(body);
       return response.data;
     },
     {
       onSuccess: (data) => {
         queryClient.invalidateQueries('subjects');
         queryClient.invalidateQueries('user');
-        return { ...data, isError: false };
       },
-      onError: (error) => {
-        return { ...error, isError: true };
+    }
+  );
+};
+
+export const useRemoveSubject = () => {
+  const queryClient = useQueryClient();
+  return useMutation(
+    ['subjects'],
+    async (body) => {
+      const response = await subjectsApi.removeSubject(body);
+      return response.data;
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries('user');
+        queryClient.invalidateQueries('student');
+        queryClient.invalidateQueries('teacher');
       },
     }
   );
@@ -46,7 +60,9 @@ export const useCreateGrade = () => {
     },
     {
       onSuccess: () => {
-        queryClient.invalidateQueries('subjects');
+        queryClient.invalidateQueries('user');
+        queryClient.invalidateQueries('student');
+        queryClient.invalidateQueries('teacher');
       },
     }
   );
@@ -62,13 +78,10 @@ export const useCreateExam = () => {
       return response.data;
     },
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
         queryClient.invalidateQueries('student');
         queryClient.invalidateQueries('teacher');
-        return { ...data, isError: false };
-      },
-      onError: (error) => {
-        return { ...error, isError: true };
+        queryClient.invalidateQueries('user');
       },
     }
   );

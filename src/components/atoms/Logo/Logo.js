@@ -26,6 +26,11 @@ const LogoWrapper = styled.div`
       right: -85px;
       top: 20px;
       box-shadow: 3px 3px 12px 0px rgba(190, 190, 190, 1);
+      display: none;
+
+      @media (min-width: 768px) {
+        display: block;
+      }
 
       h1 {
         font-size: 15px;
