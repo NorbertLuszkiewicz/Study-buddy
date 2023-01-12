@@ -4,7 +4,7 @@
 
 ## Demo Study buddy
 
-You can view a demo version of the application at the [following link]()
+You can view a demo version of the application at the [following link](https://study-buddy-page.netlify.app/)
 
 ## Auth data
 
@@ -15,8 +15,10 @@ password: `teacher`
 
 ### For the student
 
-login: `student@emial.com`
+login: `student@emial.com` \
 password: `student`
+
+## [Api documentation](https://study-buddy-api.glitch.me/)
 
 ## Development Guide
 
