@@ -10,12 +10,12 @@ You can view a demo version of the application at the [following link](https://s
 
 ### For the teacher
 
-login: `teacher@emial.com`
+login: `teacher@email.com` \
 password: `teacher`
 
 ### For the student
 
-login: `student@emial.com` \
+login: `student@email.com` \
 password: `student`
 
 ## [Api documentation](https://study-buddy-api.glitch.me/)
