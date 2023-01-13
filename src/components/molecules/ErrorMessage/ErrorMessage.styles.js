@@ -56,6 +56,6 @@ export const Wrapper = styled.div`
   &::after {
     transform: translateX(-50%) scaleX(1);
     transform-origin: left top;
-    animation: ${shrinkAnimation} 3 1s linear 1 forwards;
+    animation: ${shrinkAnimation} 3s 1s linear 1 forwards;
   }
 `;

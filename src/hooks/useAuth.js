@@ -32,8 +32,8 @@ export const AuthProvider = ({ children }) => {
         redirect('/');
       },
       onError: async (error) => {
-        setUser(null);
-        dispatchError(error);
+        signOut();
+        dispatchError(error?.data?.errors?.message);
       },
     });
   };
